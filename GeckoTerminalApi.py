@@ -161,7 +161,7 @@ if __name__ == "__main__":
     all_pools['attributes.volume_usd.h24'] = [float(x) for x in all_pools['attributes.volume_usd.h24']]
     all_pools = all_pools[all_pools['attributes.volume_usd.h24'] >= 2000.0]
     all_pools['chain'] = all_pools['id'].str.split('_', expand=True)[0]
-    all_pools.to_csv(r'C:\Users\janik\OneDrive\Pulpit\coingecko\all_new_pools.csv', sep='|', decimal=',')
+    all_pools.to_csv(r'all_new_pools.csv', sep='|', decimal=',')
 
     # new_pools = api.get_new_pools('eth')
     # new_pools = new_pools.sort_values(by='attributes.pool_created_at', ascending=False)
