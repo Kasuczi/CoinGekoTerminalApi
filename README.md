@@ -1,0 +1,2 @@
+# CoinGekoTerminalApi
+CoinGekoTerminalApi connector
