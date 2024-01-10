@@ -3,7 +3,6 @@ import time
 import logging
 import pandas as pd
 
-# pd.set_option('display.max_columns', None)
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 
@@ -144,47 +143,4 @@ class GeckoTerminalAPI:
             time.sleep(self.DELAY)
 
         return pd.concat(all_data, ignore_index=True) if all_data else pd.DataFrame()
-
-
-if __name__ == "__main__":
-    api = GeckoTerminalAPI()
-    networks = api.get_networks()
-    all_pools = pd.DataFrame()
-
-    if not networks.empty:
-        for network in networks['id']:
-            logging.info(f"Fetching new pools for network: {network}")
-            new_pools = api.get_new_pools(network)
-            all_pools = pd.concat([all_pools, new_pools], ignore_index=True)
-
-    all_pools = all_pools.sort_values(by='attributes.pool_created_at', ascending=False)
-    all_pools['attributes.volume_usd.h24'] = [float(x) for x in all_pools['attributes.volume_usd.h24']]
-    all_pools = all_pools[all_pools['attributes.volume_usd.h24'] >= 2000.0]
-    all_pools['chain'] = all_pools['id'].str.split('_', expand=True)[0]
-    all_pools.to_csv(r'all_new_pools.csv', sep='|', decimal=',')
-
-    # new_pools = api.get_new_pools('eth')
-    # new_pools = new_pools.sort_values(by='attributes.pool_created_at', ascending=False)
-    # new_pools = new_pools[new_pools['attributes.volume_usd.h24'] >= 2000]
-    # print(new_pools)
-
-    # Fetch pools by address including dex information
-    # pools_by_address = api.get_pools_by_address('0xSomePoolAddress', include='dex')
-    # print(pools_by_address)
-
-    # Fetch multiple pools by addresses
-    # multiple_pools = api.get_multiple_pools_by_addresses('0xAddress1,0xAddress2')
-    # print(multiple_pools)
-
-    # Fetch trending pools
-    # trending_pools = api.get_trending_pools()
-    # print(trending_pools)
-
-    # Fetch global trending pools
-    # global_trending_pools = api.get_global_trending_pools()
-    # global_trending_pools = global_trending_pools.sort_values(by='pool_created_at', ascending=False)
-
-    # Search for pools with a query
-    # search_results = api.search_pools('ETH')
-    # print(search_results)
 
