@@ -43,9 +43,6 @@ Refer to the code documentation for more details on each method.
 ## Contributing
 Contributions are welcome! If you have ideas for improvements or encounter any issues, please open an issue or submit a pull request.
 
-## License
-This project is licensed under the [MIT License](LICENSE).
 
----
 
 Feel free to modify or extend this template to better suit your project's specific needs or personal preferences.
