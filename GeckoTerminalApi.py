@@ -3,6 +3,7 @@ import time
 import logging
 import pandas as pd
 
+# pd.set_option('display.max_columns', None)
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 
@@ -64,7 +65,7 @@ class GeckoTerminalAPI:
     def _make_request(self, endpoint, params=None):
         full_url = self.BASE_URL + endpoint
         try:
-            logging.info(f"Making API request to {full_url}")
+            # logging.info(f"Making API request to {full_url}")
             response = requests.get(full_url, headers=self.HEADERS, params=params)
             response.raise_for_status()
             data = response.json()
@@ -113,7 +114,7 @@ class GeckoTerminalAPI:
 
             full_url = self.BASE_URL + endpoint
             try:
-                logging.info(f"Making API request to {full_url}")
+                # logging.info(f"Making API request to {full_url} page {page}")
                 response = requests.get(full_url, headers=self.HEADERS, params=params)
                 response.raise_for_status()
                 data = response.json()
@@ -144,3 +145,9 @@ class GeckoTerminalAPI:
 
         return pd.concat(all_data, ignore_index=True) if all_data else pd.DataFrame()
 
+
+def convert_to_float(column):
+    try:
+        return column.astype(float)
+    except ValueError:
+        return column
