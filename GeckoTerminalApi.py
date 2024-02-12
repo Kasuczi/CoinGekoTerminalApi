@@ -40,10 +40,10 @@ class GeckoTerminalAPI:
         endpoint = f'/networks/{self.network}/pools/multi/{addresses}'
         return self._make_request(endpoint, params=params)
 
-    def get_trending_pools(self, page=1, include=None):
-        params = {'page': page, 'include': include}
-        endpoint = f'/networks/{self.network}/trending_pools'
-        return self._make_request(endpoint, params=params)
+    def get_trending_pools(self, network, include=None):
+        params = {'include': include}
+        endpoint = f'/networks/{network}/pools'
+        return self._make_paginated_request(endpoint, initial_params=params)
 
     def get_global_trending_pools(self, page=1, include=None):
         params = {'page': page, 'include': include}
